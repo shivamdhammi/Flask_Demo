@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -11,7 +13,7 @@ from resources.store import Store, StoreList
 app = Flask(__name__)
 #this is to tell the SQLAlchemy that we will be using sqlite other options can be 
 #oracle, mysql, posturge SQL(ya jo bhi spelling hai uski :))
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATAVASE_URL","sqlite:///data.db")
 #modifications are already present. if we don't make it false there will be performance issues.
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #This key should be secret if you are writing a production code
