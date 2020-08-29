@@ -6,7 +6,6 @@ from security import authenticate, identity
 from resources.user import UserRegister
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
-from db import db
 
 #This is to setup the flask for our project
 app = Flask(__name__)
@@ -20,9 +19,7 @@ app.secret_key = "shivam"
 #This enables us t o use classes i.e. use OOP aproch to make api calls
 api = Api(app)
 
-@app.before_first_request
-def create_table():
-    db.create_all()
+
 
 #This handles the '/auth' call and returns the access token.
 # app.config['JWT_AUTH_URL_RULE'] = '/login' -- to change '/auth' to '/login'
@@ -46,6 +43,5 @@ api.add_resource(UserRegister,'/register')
 
 #beacuse we don't want to run the app again and again if this file gets imported some other file.
 if __name__ == '__main__':
-    db.init_app(app)
     app.run(port=5000, debug=True)
 
